@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from cloudamqp_helper import cloudamqp
 from api_helper import jobs_api
 import json
-
+from twilio_helper import twilio_api
 
 app = FastAPI()
 
@@ -24,6 +24,9 @@ def callback(ch, method, properties, body):
     }
     jobs = jobs_api.get_jobs(payload=payload)
     print(f"\n ALL JOBS: #{jobs} \n")
+
+    # Email job to user
+    twilio_api.email_job_listing(to_email=email, job=jobs)
 
 
 def main():

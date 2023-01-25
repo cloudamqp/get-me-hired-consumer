@@ -35,7 +35,9 @@ class APIRequestHelper:
             print(response)
         
         response = json.loads(response.content)
-        return response[:5]
+        
+        # Only grab the first job - just simplifying things
+        return response[0]
 
     def __get_linkedin_jobs(self, payload: dict) -> List[Dict]:
         __api_url = "https://linkedin-jobs-search.p.rapidapi.com/"
